@@ -1,0 +1,68 @@
+{
+    "Version": "2012-10-17",
+    "Statement": [
+      {
+        "Sid": "DenyUnencryptedVolumes",
+        "Effect": "Deny",
+        "Action": "ec2:CreateVolume",
+        "Resource": "*",
+        "Condition": {
+          "Bool": {
+            "ec2:Encrypted": "false"
+          }
+        }
+      },
+      {
+        "Sid": "DenyUnencyptedRDS",
+        "Effect": "Deny",
+        "Action": [
+          "rds:CreateDBInstance"
+        ],
+        "Resource": [
+          "*"
+        ],
+        "Condition": {
+          "StringNotLike": {
+            "rds:DatabaseEngine": "aurora*"
+          },
+          "Bool": {
+            "rds:StorageEncrypted": "false"
+          }
+        }
+      },
+      {
+        "Sid": "DenyUnencyptedAurora",
+        "Effect": "Deny",
+        "Action": [
+          "rds:CreateDBCluster"
+        ],
+        "Resource": [
+          "*"
+        ],
+        "Condition": {
+          "Bool": {
+            "rds:StorageEncrypted": "false"
+          }
+        }
+      },
+      {
+        "Sid": "DenyUnencryptedEfs",
+        "Effect": "Deny",
+        "Action": "elasticfilesystem:CreateFileSystem",
+        "Resource": "*",
+        "Condition": {
+          "Bool": {
+            "elasticfilesystem:Encrypted": "false"
+          }
+        }
+      },
+      {
+        "Sid": "DenyDisableEncryption",
+        "Action": [
+          "ec2:DisableEbsEncryptionByDefault"
+        ],
+        "Resource": "*",
+        "Effect": "Deny"
+      }
+    ]
+  }
