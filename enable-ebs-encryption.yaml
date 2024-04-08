@@ -10,7 +10,7 @@ Resources:
   EbsEncryptionByDefaultLambdaFunction:
     Type: AWS::Lambda::Function
     Properties:
-      FunctionName: "rbcz-lz-ebs-encryption-lambda"
+      FunctionName: "lz-ebs-encryption-lambda"
       Role: !Sub '${EbsEncryptionByDefaultLambdaExecutionRole.Arn}'
       Description: Lambda function that enables EBS default encryption during LZ provissioning
       Handler: index.handler
@@ -36,7 +36,7 @@ Resources:
   EbsEncryptionByDefaultLambdaExecutionRole:
     Type: AWS::IAM::Role
     Properties:
-      RoleName: "rbcz-lz-ebs-encryption-lambda-role"
+      RoleName: "lz-ebs-encryption-lambda-role"
       AssumeRolePolicyDocument:
         Version: '2012-10-17'
         Statement:
